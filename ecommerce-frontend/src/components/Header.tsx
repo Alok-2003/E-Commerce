@@ -1,3 +1,4 @@
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {FaSearch,FaShoppingBag,FaSignInAlt,FaUser,FaSignOutAlt} from "react-icons/fa";
 import { Link } from "react-router-dom"
