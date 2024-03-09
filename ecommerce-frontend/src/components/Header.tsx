@@ -10,7 +10,7 @@ const Header = () => {
     const logoutHandler = async () => {
         try {
           await signOut();
-          toast.success("Sign Out Successfully");
+          toast.success("Sign Out Succesfully");
           setIsOpen(false);
         } catch (error) {
           toast.error("Sign Out Fail");
