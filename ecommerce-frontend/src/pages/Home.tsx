@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
-import { Skeleton } from "../components/Loader";
+// import { Skeleton } from "../components/Loader";
+import ProductCard from "../components/ProductCard";
 
 
 const Home = () => {
+  const addToCartHandler = () => {};
+
   return (
     <div className="home">
       <section></section>
@@ -15,21 +18,16 @@ const Home = () => {
       </h1>
 
       <main>
-        {isLoading ? (
-          <Skeleton width="80vw" />
-        ) : (
-          data?.products.map((i) => (
             <ProductCard
-              key={i._id}
-              productId={i._id}
-              name={i.name}
-              price={i.price}
-              stock={i.stock}
-              handler={addToCartHandler}
-              photo={i.photo}
+              key="{fvfvdvd}"
+              productId="{dvdvdvv}"
+              name="{i.name}"
+              price={454}
+              stock={3}
+              // handler={addToCartHandler}
+              photo="{i.photo}"
             />
-          ))
-        )}
+          
       </main>
     </div>
   )
