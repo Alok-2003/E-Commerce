@@ -1,6 +1,69 @@
 import React from 'react'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { VscError } from "react-icons/vsc";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+// import CartItemCard from "../components/cart-item";
+import {
+  addToCart,
+  calculatePrice,
+  discountApplied,
+  removeCartItem,
+} from "../redux/reducer/cartReducer";
+// import { RootState, server } from "../redux/store";
+// import { CartItem } from "../types/types";
 
 const Cart = () => {
+
+  const dispatch = useDispatch();
+
+  const [couponCode, setCouponCode] = useState<string>("");
+  const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
+
+  const incrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity >= cartItem.stock) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+  const decrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity <= 1) return;
+
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+  const removeHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
+  useEffect(() => {
+    const { token: cancelToken, cancel } = axios.CancelToken.source();
+
+    const timeOutID = setTimeout(() => {
+      axios
+        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+          cancelToken,
+        })
+        .then((res) => {
+          dispatch(discountApplied(res.data.discount));
+          setIsValidCouponCode(true);
+          dispatch(calculatePrice());
+        })
+        .catch(() => {
+          dispatch(discountApplied(0));
+          setIsValidCouponCode(false);
+          dispatch(calculatePrice());
+        });
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeOutID);
+      cancel();
+      setIsValidCouponCode(false);
+    };
+  }, [couponCode]);
+
+  // useEffect(() => {
+  //   dispatch(calculatePrice());
+  // }, [cartItems]);
 
   const { cartItems, subtotal, tax, total, shippingCharges, discount } =
     useSelector((state: RootState) => state.cartReducer);
