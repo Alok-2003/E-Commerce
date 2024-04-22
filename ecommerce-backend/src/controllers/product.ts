@@ -247,4 +247,4 @@ export const getAllProducts = TryCatch(
 //   }
 
 //   console.log({ succecss: true });
-// };
+// };      

@@ -11,7 +11,7 @@ import {
   updateProduct,
 } from "../controllers/product.js";
 import { singleUpload } from "../middlewares/multer.js";
-
+ 
 const app = express.Router();
 
 //To Create New Product  - /api/v1/product/new
