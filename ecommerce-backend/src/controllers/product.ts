@@ -10,7 +10,7 @@ import ErrorHandler from "../utils/utility-class.js";
 import { rm } from "fs";
 import { myCache } from "../app.js";
 import { invalidateCache } from "../utils/features.js";
-// import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 // Revalidate on New,Update,Delete Product & on New Order
 export const getlatestProducts = TryCatch(async (req, res, next) => {
@@ -247,4 +247,4 @@ export const getAllProducts = TryCatch(
 //   }
 
 //   console.log({ succecss: true });
-// };      
+// };       
