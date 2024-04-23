@@ -1,21 +1,21 @@
-import React from 'react'
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import CartItemCard from "../components/cart-item";
+import CartItemCard from "../components/cart-item";
 import {
   addToCart,
   calculatePrice,
   discountApplied,
   removeCartItem,
 } from "../redux/reducer/cartReducer";
-// import { RootState, server } from "../redux/store";
-// import { CartItem } from "../types/types";
+import { RootState, server } from "../redux/store";
+import { CartItem } from "../types/types";
 
 const Cart = () => {
-
+  const { cartItems, subtotal, tax, total, shippingCharges, discount } =
+    useSelector((state: RootState) => state.cartReducer);
   const dispatch = useDispatch();
 
   const [couponCode, setCouponCode] = useState<string>("");
@@ -61,12 +61,9 @@ const Cart = () => {
     };
   }, [couponCode]);
 
-  // useEffect(() => {
-  //   dispatch(calculatePrice());
-  // }, [cartItems]);
-
-  const { cartItems, subtotal, tax, total, shippingCharges, discount } =
-    useSelector((state: RootState) => state.cartReducer);
+  useEffect(() => {
+    dispatch(calculatePrice());
+  }, [cartItems]);
 
   return (
     <div className="cart">
@@ -117,7 +114,7 @@ const Cart = () => {
         {cartItems.length > 0 && <Link to="/shipping">Checkout</Link>}
       </aside>
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
