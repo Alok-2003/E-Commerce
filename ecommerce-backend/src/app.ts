@@ -24,7 +24,7 @@ const stripeKey = process.env.STRIPE_KEY || "";
 
 connectDB(mongoURI); 
 
-// export const stripe = new Stripe(stripeKey);
+export const stripe = new Stripe(stripeKey);
 export const myCache = new NodeCache();
 
 const app = express();
