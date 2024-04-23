@@ -27,7 +27,7 @@ export const newCoupon = TryCatch(async (req, res, next) => {
 
   await Coupon.create({ code: coupon, amount });
 
-  return res.status(201).json({
+  return res.status(201).json({  
     success: true,
     message: `Coupon ${coupon} Created Successfully`,
   });
